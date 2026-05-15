@@ -7,15 +7,16 @@ export const products: Product[] = [
     category: "Living Room",
     price: 85000,
     description: "Elegant handcrafted sofa with premium cushioning.",
-    image: "https://via.placeholder.com/400x300",
+    image: "/images/blueberry sofa.jpg",
     woodTypes: ["Mahogany", "Pine"]
   },
   {
     id: "2",
     name: "Kitchen Cabinets",
     category: "Kitchen",
+    price: 75000,
     description: "Custom-built cabinets tailored to your space.",
-    image: "https://via.placeholder.com/400x300",
+    image: "/images/kitchen1.jpg",
     woodTypes: ["Cypress", "MDF"]
   },
   {
@@ -24,7 +25,7 @@ export const products: Product[] = [
     category: "Bedroom",
     price: 65000,
     description: "Spacious wardrobe with sliding doors.",
-    image: "https://via.placeholder.com/400x300",
+    image: "/images/wardrobes2.jpg",
     woodTypes: ["Mahogany", "MDF"]
   },
 ];
