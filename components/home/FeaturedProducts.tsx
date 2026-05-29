@@ -1,5 +1,6 @@
 // components/home/FeaturedProducts.tsx
 
+import Image from "next/image";
 import Link from "next/link";
 
 const featuredProducts = [
@@ -58,9 +59,11 @@ export default function FeaturedProducts() {
 
               {/* IMAGE */}
               <div className="overflow-hidden">
-                <img
+                <Image
                   src={product.image}
                   alt={product.name}
+                  width={600}
+                  height={480}
                   className="w-full h-72 object-cover group-hover:scale-105 transition duration-500"
                 />
               </div>

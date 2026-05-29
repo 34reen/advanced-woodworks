@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function AboutPreview() {
@@ -5,10 +6,12 @@ export default function AboutPreview() {
     <section className="py-20 bg-gray-100">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
 
-        <img
+        <Image
           src="/images/workshop.jpg"
           alt="Woodwork shop"
-          className="rounded-lg shadow-lg"
+          width={700}
+          height={520}
+          className="rounded-lg shadow-lg w-full object-cover"
         />
 
         <div>
