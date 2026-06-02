@@ -6,8 +6,12 @@ export default function Navbar() {
       <h1 className="font-bold text-lg">WoodCraft</h1>
       <div className="space-x-6">
         <Link href="/">Home</Link>
+        <Link href="/about">About</Link>
+        <Link href="/services">Services</Link>
+        <Link href="/materials">Materials</Link>
         <Link href="/products">Products</Link>
         <Link href="/custom-orders">Custom Orders</Link>
+        <Link href="/site-visit">Site Visit</Link>
         <Link href="/contact">Contact</Link>
       </div>
     </nav>
