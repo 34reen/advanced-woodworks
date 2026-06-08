@@ -12,12 +12,12 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
-      <AboutPreview />
       <CategoryGrid />
       <FeaturedProducts />
       <CustomFurniture />
       <MaterialsShowcase />
       <ServicesPreview />
+      <AboutPreview />
       <Testimonials />
       <FinalCTA />
     </main>

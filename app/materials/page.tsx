@@ -1,5 +1,4 @@
 import MaterialCategoriesGrid from "@/components/materials/MaterialCategoriesGrid";
-import MaterialsHero from "@/components/materials/MaterialsHero";
 import MaterialsStore from "@/components/materials/MaterialsStore";
 import UsageExamples from "@/components/materials/UsageExamples";
 
@@ -12,7 +11,6 @@ export const metadata = {
 export default function MaterialsPage() {
   return (
     <>
-      <MaterialsHero />
       <MaterialCategoriesGrid />
       <MaterialsStore />
       <UsageExamples />

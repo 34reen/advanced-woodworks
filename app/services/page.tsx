@@ -1,5 +1,6 @@
 import BookSiteVisitCta from "@/components/services/BookSiteVisitCta";
 import InstallationProcess from "@/components/services/InstallationProcess";
+import ServicesHero from "@/components/services/ServicesHero";
 import ServicesOverviewGrid from "@/components/services/ServicesOverviewGrid";
 import ServicesPortfolioPreview from "@/components/services/ServicesPortfolioPreview";
 
@@ -12,6 +13,7 @@ export const metadata = {
 export default function ServicesPage() {
   return (
     <>
+      <ServicesHero />
       <ServicesOverviewGrid />
       <InstallationProcess />
       <ServicesPortfolioPreview />

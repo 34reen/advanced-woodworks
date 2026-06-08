@@ -1,53 +1,55 @@
 import Image from "next/image";
-import Link from "next/link";
 
 export default function FinalCTA() {
   return (
     <section className="relative overflow-hidden bg-stone-950 text-white">
+      {/* Background image */}
       <Image
-        src="/images/hero.png"
+        src="/images/ctabg.jpg"
         alt="Premium custom woodwork interior"
         width={1600}
         height={900}
         className="absolute inset-0 h-full w-full object-cover"
       />
-
       <div className="absolute inset-0 bg-black/70" />
 
-      <div className="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Content - reduced vertical padding */}
+      <div className="relative max-w-7xl mx-auto px-6 py-12 md:py-16">
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
+          {/* Left column: title and subtitle */}
           <div>
-            <p className="text-amber-300 uppercase tracking-[3px] font-medium">
-              Start Your Project
-            </p>
-
-            <h2 className="mt-4 text-4xl md:text-6xl font-bold leading-tight">
-              Let&apos;s Build Furniture Worth Keeping
+            <h2 className="text-2xl md:text-3xl font-medium text-white">
+              Stay Updated
             </h2>
+            <p className="mt-2 text-base text-stone-200 leading-relaxed">
+              Be the first to know about our exclusive deals, discounts, and news.
+            </p>
           </div>
 
+          {/* Right column: email form */}
           <div>
-            <p className="text-lg leading-relaxed text-stone-200">
-              Share your dimensions, preferred wood tone, and the room you want
-              to transform. We will help shape the idea into a durable,
-              polished piece made for your space.
+            <form
+              action="/api/subscribe" // replace with your actual endpoint
+              method="POST"
+              className="flex flex-col sm:flex-row gap-3"
+            >
+              <input
+                type="email"
+                name="email"
+                placeholder="Your email address"
+                required
+                className="flex-1 rounded-md border border-white/30 bg-white/10 px-4 py-2 text-white placeholder:text-stone-300 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400"
+              />
+              <button
+                type="submit"
+                className="rounded-md bg-amber-700 px-5 py-2 font-medium text-white transition hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-400"
+              >
+                Subscribe
+              </button>
+            </form>
+            <p className="mt-3 text-xs text-stone-300">
+              No spam, unsubscribe anytime.
             </p>
-
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-md bg-amber-700 px-7 py-4 font-semibold text-white shadow-lg shadow-black/30 transition duration-300 hover:-translate-y-0.5 hover:bg-amber-800"
-              >
-                Request Quote
-              </Link>
-
-              <Link
-                href="/products"
-                className="inline-flex items-center justify-center rounded-md border border-white/35 px-7 py-4 font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-stone-950"
-              >
-                View Portfolio
-              </Link>
-            </div>
           </div>
         </div>
       </div>

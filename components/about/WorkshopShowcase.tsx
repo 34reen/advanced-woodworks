@@ -5,41 +5,39 @@ export default function WorkshopShowcase() {
   return (
     <section className="bg-stone-100 py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-          <div>
-            <p className="font-medium uppercase tracking-[3px] text-amber-700">
-              Workshop Showcase
-            </p>
-            <h2 className="mt-4 text-4xl font-bold leading-tight text-stone-950 md:text-5xl">
-              Where Materials Become Finished Interiors
-            </h2>
-          </div>
-          <p className="text-lg leading-relaxed text-stone-600">
+        {/* Centered heading and description */}
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <p className="font-medium uppercase tracking-[3px] text-amber-700">
+            Workshop Showcase
+          </p>
+          <h2 className="mt-4 text-4xl font-bold leading-tight text-stone-950 md:text-5xl">
+            Where Materials Become Finished Interiors
+          </h2>
+          <p className="mt-5 text-lg leading-relaxed text-stone-600">
             Our workshop process supports each stage of a project: material
             selection, cutting, assembly, sanding, finishing, and site-ready
             preparation.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {workshopImages.map((image, index) => (
+        {/* Image grid - 4 equal cards (assumes workshopImages now has 4 items) */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {workshopImages.map((image) => (
             <figure
               key={image.title}
-              className={`group overflow-hidden rounded-lg border border-stone-200 bg-white shadow-sm ${
-                index === 0 ? "md:col-span-2" : ""
-              }`}
+              className="group overflow-hidden rounded-lg border border-stone-200 bg-white shadow-sm transition hover:shadow-md"
             >
-              <div className="relative h-80 overflow-hidden md:h-96">
+              <div className="relative h-64 overflow-hidden md:h-72">
                 <Image
                   src={image.src}
                   alt={image.alt}
                   fill
-                  sizes="(min-width: 768px) 33vw, 100vw"
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />
               </div>
-              <figcaption className="p-5">
-                <p className="text-xl font-bold text-stone-950">
+              <figcaption className="p-4">
+                <p className="text-lg font-bold text-stone-950">
                   {image.title}
                 </p>
               </figcaption>

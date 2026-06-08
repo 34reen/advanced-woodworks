@@ -5,7 +5,7 @@ export default function AboutCTA() {
   return (
     <section className="relative overflow-hidden bg-stone-950 text-white">
       <Image
-        src="/images/hero.png"
+        src="/images/ctabg.jpg"
         alt="Advanced Woodworks custom furniture interior"
         fill
         sizes="100vw"
@@ -13,13 +13,13 @@ export default function AboutCTA() {
       />
       <div className="absolute inset-0 bg-stone-950/75" />
 
-      <div className="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
+      <div className="relative mx-auto max-w-7xl px-6 py-18 md:py-27">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <p className="font-medium uppercase tracking-[3px] text-amber-300">
               Start Your Project
             </p>
-            <h2 className="mt-4 text-4xl font-bold leading-tight md:text-6xl">
+            <h2 className="mt-4 text-2xl font-bold leading-tight md:text-4xl">
               Work With A Team That Understands The Room And The Material
             </h2>
           </div>

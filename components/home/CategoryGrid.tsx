@@ -20,109 +20,97 @@ const roomCategories = [
 ];
 
 const woodCategories = [
-  "Mahogany",
-  "Cypress",
-  "MDF",
-  "Pine",
+  { name: "Mahogany", icon: "🪵" },
+  { name: "Cypress", icon: "🌲" },
+  { name: "MDF", icon: "📄" },
+  { name: "Pine", icon: "🌳" },
 ];
 
 export default function CategoryGrid() {
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-16 bg-gray-50">   {/* reduced vertical padding */}
       <div className="max-w-7xl mx-auto px-6">
-        <div className="max-w-3xl mb-12">
-          <p className="text-amber-700 uppercase tracking-[3px] font-medium">
+        <div className="max-w-3xl mb-8">
+          <h2 className="text-amber-700 uppercase tracking-[3px] font-medium text-sm">
             Shop By Category
-          </p>
-
-          <h2 className="text-4xl md:text-5xl font-bold mt-3">
-            Find Furniture By Space Or Wood Type
           </h2>
-
-          <p className="text-gray-600 mt-5 leading-relaxed">
-            Choose pieces based on where they belong in your home or business,
-            or start with the wood finish and material that suits your style.
-          </p>
         </div>
 
-        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8">
-          <div>
-            <div className="flex items-center justify-between gap-4 mb-5">
-              <h3 className="text-2xl font-semibold">
-                By Room
-              </h3>
-
-              <Link
-                href="/products"
-                className="text-amber-700 font-medium hover:text-amber-800"
-              >
-                View all
-              </Link>
-            </div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {roomCategories.map((category) => (
-                <Link
-                  key={category.name}
-                  href="/products"
-                  className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition"
-                >
-                  <div className="overflow-hidden">
-                    <Image
-                      src={category.image}
-                      alt={`${category.name} furniture`}
-                      width={600}
-                      height={420}
-                      className="h-56 w-full object-cover group-hover:scale-105 transition duration-500"
-                    />
-                  </div>
-
-                  <div className="p-5">
-                    <h4 className="text-xl font-semibold">
-                      {category.name}
-                    </h4>
-
-                    <p className="text-gray-600 mt-2 leading-relaxed">
-                      {category.description}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
+        {/* By Room section - full width, stacked above */}
+        <div className="mb-16">
+          <div className="flex items-center justify-between gap-4 mb-5">
+            <h3 className="text-xl font-semibold">   {/* smaller heading */}
+              By Room
+            </h3>
+            <Link
+              href="/products"
+              className="text-amber-700 font-medium hover:text-amber-800 text-sm"
+            >
+              View all
+            </Link>
           </div>
 
-          <div className="bg-white rounded-lg p-7 shadow-md">
-            <p className="text-sm text-amber-700 uppercase tracking-[3px] font-medium">
-              By Wood Type
-            </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {roomCategories.map((category) => (
+              <Link
+                key={category.name}
+                href="/products"
+                className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition"
+              >
+                <div className="overflow-hidden">
+                  <Image
+                    src={category.image}
+                    alt={`${category.name} furniture`}
+                    width={600}
+                    height={420}
+                    className="h-40 w-full object-cover group-hover:scale-105 transition duration-500"   // smaller image
+                  />
+                </div>
+                <div className="p-3">   {/* reduced padding */}
+                  <h4 className="text-lg font-semibold">   {/* smaller title */}
+                    {category.name}
+                  </h4>
+                  <p className="text-gray-600 mt-1 text-sm leading-relaxed">   {/* smaller text */}
+                    {category.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
 
-            <h3 className="text-2xl font-semibold mt-3">
-              Pick The Material First
-            </h3>
+        {/* By Wood Type section - full width, stacked below */}
+        <div className="bg-white rounded-lg p-5 shadow-md">   {/* reduced padding */}
+          <h2 className="text-xs text-amber-700 uppercase tracking-[3px] font-medium">
+            By Wood Type
+          </h2>
+          
 
-            <p className="text-gray-600 mt-3 leading-relaxed">
-              Browse furniture by the material and finish you prefer, from rich
-              hardwood character to clean engineered surfaces.
-            </p>
+          <div className="flex items-center gap-50 ml-20 mt-5">
+            <div className="flex flex-wrap justify-between gap-30"> 
+            {woodCategories.map((wood) => (
+              <Link
+                key={wood.name}
+                href="/products"
+                className="flex flex-col items-center gap-1 w-20 group"
+              >
+                <div className="w-20 h-20 rounded-full border-2 border-gray-200 flex items-center justify-center bg-gray-50 group-hover: border-amber-700 group-hover:bg-amber-50 transition">   {/* circular icons */}
+                {/* Generic placeholder icon */}
+                <span className="text-3xl" aria-hidden="true">
+                  {wood.icon}
+                </span>
+                </div>
+                <span className="text-sm font-medium text-center">{wood.name}</span>
+              </Link>
+            ))}
+      </div>
 
-            <div className="grid grid-cols-2 gap-3 mt-7">
-              {woodCategories.map((wood) => (
-                <Link
-                  key={wood}
-                  href="/products"
-                  className="border border-gray-200 rounded-md px-4 py-4 text-center font-semibold hover:border-amber-700 hover:bg-amber-50 transition"
-                >
-                  {wood}
-                </Link>
-              ))}
-            </div>
-
-            <Link
-              href="/contact"
-              className="block mt-7 bg-amber-700 hover:bg-amber-800 text-white text-center py-3 rounded-md transition"
-            >
-              Request Custom Material
-            </Link>
+          <Link
+            href="/contact"
+            className="bg-amber-700 hover:bg-amber-800 text-white text-center py-1.5 px-4 rounded-md transition text-sm whitespace-nowrap"
+          >
+            Request Custom Material
+          </Link>
           </div>
         </div>
       </div>

@@ -7,92 +7,88 @@ const testimonials = [
       "The cabinets changed the entire feel of our kitchen. The finish is beautiful and every measurement was exact.",
     name: "Grace M.",
     project: "Kitchen cabinetry",
+    image: "/images/client1.jpg", // placeholder – replace with actual client photo
   },
   {
     quote:
       "Our office desks and shelves feel solid, elegant, and made for the way our team works every day.",
     name: "Daniel K.",
     project: "Office furniture",
+    image: "/images/client2.jpg",
+  },
+  {
+    quote:
+      "The custom bed frame transformed our bedroom. Incredible craftsmanship and attention to detail.",
+    name: "Julia S.",
+    project: "Bedroom joinery",
+    image: "/images/client3.jpg",
   },
 ];
 
 export default function Testimonials() {
   return (
-    <section className="py-24 bg-stone-950 text-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div>
-            <p className="text-amber-400 uppercase tracking-[3px] font-medium">
-              Client Stories
-            </p>
+    <section className="relative py-24 overflow-hidden">
+      {/* Blurred background image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/bedframe.jpg"
+          alt="Background"
+          fill
+          className="object-cover blur-md scale-105"
+          priority
+        />
+        <div className="absolute inset-0 bg-stone-950/70" /> {/* Dark overlay for readability */}
+      </div>
 
-            <h2 className="mt-4 text-4xl md:text-5xl font-bold leading-tight">
-              Trusted For Furniture That Feels Personal And Lasts
-            </h2>
-
-            <p className="mt-6 text-lg leading-relaxed text-stone-300">
-              Our clients come to us for custom pieces that feel considered,
-              polished, and built with care from the first consultation to the
-              final installation.
-            </p>
-
-            <div className="mt-8 space-y-5">
-              {testimonials.map((testimonial) => (
-                <figure
-                  key={testimonial.name}
-                  className="rounded-lg border border-white/10 bg-white/[0.04] p-6 transition duration-300 hover:-translate-y-1 hover:border-amber-500/60 hover:bg-amber-500/10"
-                >
-                  <blockquote className="text-lg leading-relaxed text-stone-200">
-                    “{testimonial.quote}”
-                  </blockquote>
-                  <figcaption className="mt-5">
-                    <p className="font-semibold text-white">
-                      {testimonial.name}
-                    </p>
-                    <p className="mt-1 text-sm uppercase tracking-[2px] text-amber-300">
-                      {testimonial.project}
-                    </p>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-
-            <div className="mt-9 flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-md bg-amber-700 px-7 py-4 font-semibold text-white shadow-lg shadow-amber-950/30 transition duration-300 hover:-translate-y-0.5 hover:bg-amber-800"
-              >
-                Request Quote
-              </Link>
-
-              <Link
-                href="/products"
-                className="inline-flex items-center justify-center rounded-md border border-white/25 px-7 py-4 font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:border-amber-400 hover:bg-white hover:text-stone-950"
-              >
-                View Portfolio
-              </Link>
-            </div>
-          </div>
-
-          <div className="relative group overflow-hidden rounded-xl shadow-2xl">
-            <Image
-              src="/images/bedframe.jpg"
-              alt="Luxury custom bedroom furniture"
-              width={900}
-              height={680}
-              className="h-[430px] w-full object-cover sm:h-[600px] group-hover:scale-105 transition duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6 rounded-lg border border-white/15 bg-black/45 p-5 backdrop-blur-sm">
-              <p className="text-sm uppercase tracking-[3px] text-amber-300">
-                Built Around You
-              </p>
-              <p className="mt-2 text-2xl font-semibold">
-                Premium furniture made to suit the room and the routine.
-              </p>
-            </div>
-          </div>
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        {/* Section heading */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <p className="text-amber-400 uppercase tracking-[3px] font-medium">
+            Client Stories
+          </p>
+          <p className="mt-6 text-lg leading-relaxed text-stone-200">
+            Our clients come to us for custom pieces that feel considered,
+            polished, and built with care from the first consultation to the
+            final installation.
+          </p>
         </div>
+
+        {/* Testimonials grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {testimonials.map((testimonial) => (
+            <div
+              key={testimonial.name}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 transition hover:-translate-y-1 hover:bg-white/15"
+            >
+              {/* Client image */}
+              <div className="flex justify-center mb-4">
+                <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-amber-400">
+                  <Image
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              {/* Quote */}
+              <blockquote className="text-center text-white text-lg leading-relaxed">
+                “{testimonial.quote}”
+              </blockquote>
+              {/* Name and project */}
+              <figcaption className="mt-5 text-center">
+                <p className="font-semibold text-white text-lg">
+                  {testimonial.name}
+                </p>
+                <p className="mt-1 text-sm uppercase tracking-[2px] text-amber-300">
+                  {testimonial.project}
+                </p>
+              </figcaption>
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
   );

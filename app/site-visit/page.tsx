@@ -1,5 +1,4 @@
 import SiteVisitBookingForm from "@/components/site-visit/SiteVisitBookingForm";
-import SiteVisitHero from "@/components/site-visit/SiteVisitHero";
 
 export const metadata = {
   title: "Book A Site Visit | Advanced Woodworks",
@@ -10,7 +9,6 @@ export const metadata = {
 export default function SiteVisitPage() {
   return (
     <>
-      <SiteVisitHero />
       <SiteVisitBookingForm />
     </>
   );

@@ -1,87 +1,95 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const craftDetails = [
-  "Bespoke sizing",
-  "Premium wood finishes",
-  "Built for daily use",
+const furnitureServices = [
+  {
+    title: "Custom Cabinets",
+    description: "Built‑in or freestanding, perfectly fitted to your kitchen or living space.",
+    image: "/images/furniture/custom-cabinet.jpg",
+  },
+  {
+    title: "Furniture Repair",
+    description: "Restore heirloom pieces or refresh modern furniture with expert craftsmanship.",
+    image: "/images/furniture/repair.jpg",
+  },
+  {
+    title: "Refinishing",
+    description: "Change the colour or finish of any wooden piece to match your new decor.",
+    image: "/images/furniture/refinishing.jpg",
+  },
+  {
+    title: "Bespoke Sizing",
+    description: "Tables, desks, or storage units made to your exact dimensions.",
+    image: "/images/furniture/bespoke-sizing.jpg",
+  },
+  {
+    title: "Premium Finishes",
+    description: "Hand‑rubbed oils, durable lacquers, or natural wax – your choice.",
+    image: "/images/furniture/premium-finish.jpg",
+  },
+  {
+    title: "Installation",
+    description: "Professional delivery and fitting, so your furniture is ready to enjoy.",
+    image: "/images/furniture/installation.jpg",
+  },
 ];
 
 export default function CustomFurniture() {
   return (
     <section className="py-24 bg-stone-950 text-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="relative group">
-            <div className="absolute -inset-4 rounded-2xl bg-amber-700/20 blur-2xl opacity-70 group-hover:opacity-100 transition duration-500" />
+        {/* Centered heading and description */}
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <p className="text-amber-400 uppercase tracking-[3px] font-medium">
+            Custom Furniture
+          </p>
+          <h2 className="mt-4 text-4xl md:text-5xl font-bold leading-tight">
+            What We Can Do For You
+          </h2>
+          <p className="mt-6 text-lg leading-relaxed text-stone-300">
+            From design to installation, we provide quality furniture solutions
+            tailored to your needs.
+          </p>
+        </div>
 
-            <div className="relative overflow-hidden rounded-xl shadow-2xl">
-              <Image
-                src="/images/workshop.jpg"
-                alt="Custom furniture workshop"
-                width={900}
-                height={680}
-                className="h-[420px] w-full object-cover sm:h-[520px] lg:h-[620px] group-hover:scale-105 transition duration-700"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-
-              <div className="absolute bottom-6 left-6 right-6 rounded-lg border border-white/15 bg-black/45 p-5 backdrop-blur-sm">
-                <p className="text-sm uppercase tracking-[3px] text-amber-300">
-                  Made To Order
-                </p>
-                <p className="mt-2 text-2xl font-semibold">
-                  Furniture shaped around your space.
+        {/* 6 cards grid with images */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {furnitureServices.map((service) => (
+            <div
+              key={service.title}
+              className="group rounded-lg border border-white/10 bg-white/[0.04] overflow-hidden transition duration-300 hover:-translate-y-1 hover:border-amber-500/60 hover:bg-amber-500/10"
+            >
+              {/* Image placeholder */}
+              <div className="relative h-48 w-full overflow-hidden">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                />
+              </div>
+              {/* Content */}
+              <div className="p-5">
+                <div className="mb-3 h-1 w-12 rounded-full bg-amber-600" />
+                <h3 className="text-xl font-semibold text-white">
+                  {service.title}
+                </h3>
+                <p className="mt-2 text-stone-300 text-sm leading-relaxed">
+                  {service.description}
                 </p>
               </div>
             </div>
-          </div>
+          ))}
+        </div>
 
-          <div>
-            <p className="text-amber-400 uppercase tracking-[3px] font-medium">
-              Custom Furniture
-            </p>
-
-            <h2 className="mt-4 text-4xl md:text-5xl font-bold leading-tight">
-              Signature Wood Pieces Crafted With Intention
-            </h2>
-
-            <p className="mt-6 text-lg leading-relaxed text-stone-300">
-              Bring your exact vision to life with handcrafted tables, cabinets,
-              wardrobes, shelving, and statement pieces designed to fit your
-              room, finish preference, and daily routine.
-            </p>
-
-            <div className="mt-8 grid sm:grid-cols-3 gap-4">
-              {craftDetails.map((detail) => (
-                <div
-                  key={detail}
-                  className="rounded-lg border border-white/10 bg-white/[0.04] p-4 shadow-lg transition duration-300 hover:-translate-y-1 hover:border-amber-500/60 hover:bg-amber-500/10"
-                >
-                  <div className="mb-4 h-1 w-12 rounded-full bg-amber-600" />
-                  <p className="font-semibold text-stone-100">
-                    {detail}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-9 flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-md bg-amber-700 px-7 py-4 font-semibold text-white shadow-lg shadow-amber-950/30 transition duration-300 hover:-translate-y-0.5 hover:bg-amber-800"
-              >
-                Request Quote
-              </Link>
-
-              <Link
-                href="/portfolio"
-                className="inline-flex items-center justify-center rounded-md border border-white/25 px-7 py-4 font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:border-amber-400 hover:bg-white hover:text-stone-950"
-              >
-                View Portfolio
-              </Link>
-            </div>
-          </div>
+        {/* Button linking to custom orders page */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/custom-orders"
+            className="inline-flex items-center justify-center rounded-md border border-amber-400 bg-transparent px-6 py-3 font-semibold text-amber-400 transition duration-300 hover:bg-amber-400 hover:text-stone-950"
+          >
+            Customs Gallery →
+          </Link>
         </div>
       </div>
     </section>

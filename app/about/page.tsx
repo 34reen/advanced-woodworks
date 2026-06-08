@@ -1,5 +1,4 @@
 import AboutCTA from "@/components/about/AboutCTA";
-import AboutHero from "@/components/about/AboutHero";
 import BrandStory from "@/components/about/BrandStory";
 import DeliveryPromise from "@/components/about/DeliveryPromise";
 import LocationContact from "@/components/about/LocationContact";
@@ -18,7 +17,6 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <>
-      <AboutHero />
       <BrandStory />
       <WorkshopShowcase />
       <MissionValues />

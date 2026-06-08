@@ -23,6 +23,7 @@ export type Testimonial = {
   name: string;
   project: string;
   location: string;
+  image?: string;
 };
 
 export const values: ValueItem[] = [
