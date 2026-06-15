@@ -2,7 +2,8 @@ export type Category =
   | "Living Room"
   | "Kitchen"
   | "Bedroom"
-  | "Office";
+  | "Office"
+  | "Outdoor";
 
 export type WoodType =
   | "Mahogany"
