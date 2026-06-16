@@ -24,7 +24,7 @@ export interface ApiProduct {
   slug: string;
   name: string;
   category_id: number;
-  category_name?: string;
+  category_name: string | null;
   price: number;
   description: string;
   image: string;
