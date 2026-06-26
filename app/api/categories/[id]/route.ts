@@ -29,12 +29,13 @@ export async function DELETE(
     );
   }
 }
+
 export async function PUT(
   req: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = context.params.id;
+    const { id } = await context.params;
     const body = await req.json();
 
     const { name } = body;

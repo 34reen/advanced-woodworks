@@ -3,13 +3,18 @@ import { NextResponse } from "next/server";
 import type { RowDataPacket } from "mysql2";
 
 type Params = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
-export async function GET(req: Request, { params }: Params) {
+export async function GET(
+  req: Request,
+  { params }: Params
+) {
   try {
+    const { slug } = await params;
+
     const [rows] = await db.query<RowDataPacket[]>(
       `
       SELECT 
@@ -21,7 +26,7 @@ export async function GET(req: Request, { params }: Params) {
       WHERE p.slug = ?
       LIMIT 1
       `,
-      [params.slug]
+      [slug]
     );
 
     if (rows.length === 0) {

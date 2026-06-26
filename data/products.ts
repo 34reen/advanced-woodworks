@@ -2,7 +2,7 @@ import { Product } from "@/types";
 
 export const products: Product[] = [
   {
-    id: "1",
+    id: 1,
     slug: "modern-blueberry-sofa-set",
     name: "Modern Blueberry Sofa Set",
     category: "Living Room",
@@ -25,7 +25,7 @@ export const products: Product[] = [
     tags: ["Lounge", "Premium Upholstery", "Statement Piece"],
   },
   {
-    id: "2",
+    id: 2,
     slug: "bespoke-kitchen-cabinets",
     name: "Kitchen Cabinets",
     category: "Kitchen",
@@ -48,7 +48,7 @@ export const products: Product[] = [
     tags: ["Cabinetry", "Storage", "Custom Fit"],
   },
   {
-    id: "3",
+    id: 3,
     slug: "sliding-bedroom-wardrobe",
     name: "Sliding Bedroom Wardrobe",
     category: "Bedroom",
@@ -71,7 +71,7 @@ export const products: Product[] = [
     tags: ["Wardrobe", "Bedroom", "Sliding Doors"],
   },
   {
-    id: "4",
+    id: 4,
     slug: "executive-office-desk",
     name: "Executive Office Desk",
     category: "Office",
@@ -94,7 +94,7 @@ export const products: Product[] = [
     tags: ["Office", "Desk", "Storage"],
   },
   {
-    id: "5",
+    id: 5,
     slug: "solid-wood-bed-frame",
     name: "Solid Wood Bed Frame",
     category: "Bedroom",
