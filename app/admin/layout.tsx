@@ -6,9 +6,9 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex bg-stone-100">
+    <div className="h-screen flex bg-stone-100 overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-64 bg-stone-950 text-white p-6">
+      <aside className="w-64 h-screen bg-stone-950 text-white p-6 flex flex-col">
         <h1 className="text-xl font-bold mb-8">
           Admin Panel
         </h1>
@@ -36,6 +36,13 @@ export default function AdminLayout({
           </Link>
 
           <Link
+            href="/admin/materials"
+            className="hover:text-amber-400 transition"
+          >
+            Materials
+          </Link>
+
+          <Link
             href="/"
             className="mt-6 text-stone-400 hover:text-white transition"
           >
@@ -44,8 +51,10 @@ export default function AdminLayout({
         </nav>
       </aside>
 
-      {/* Main content */}
-      <main className="flex-1 p-6">{children}</main>
+      {/* Main content (scrollable only area) */}
+      <main className="flex-1 h-screen overflow-y-auto p-6">
+        {children}
+      </main>
     </div>
   );
 }

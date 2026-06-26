@@ -1,17 +1,20 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import type { RowDataPacket } from "mysql2";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import { writeFile } from "fs/promises";
 
-// ✅ GET PRODUCTS (you already had this)
+// GET PRODUCTS
 export async function GET() {
   try {
     const [rows] = await db.query(`
-      SELECT p.*, c.name AS category_name
+      SELECT 
+        p.*, 
+        c.name AS category_name,
+        m.name AS material_name
       FROM products p
       LEFT JOIN categories c ON p.category_id = c.id
+      LEFT JOIN materials m ON p.material_id = m.id
       ORDER BY p.created_at DESC
     `);
 
@@ -24,7 +27,7 @@ export async function GET() {
   }
 }
 
-// 🟢 CREATE PRODUCT (NEW)
+// CREATE PRODUCT
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
@@ -33,17 +36,25 @@ export async function POST(req: Request) {
     const description = formData.get("description") as string;
     const price = Number(formData.get("price"));
     const category_id = Number(formData.get("category_id"));
+    const material_id = Number(formData.get("material_id"));
     const featured = formData.get("featured") === "true";
     const imageFile = formData.get("image") as File;
 
-    if (!name || !description || !price || !category_id || !imageFile) {
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category_id ||
+      !material_id ||
+      !imageFile
+    ) {
       return NextResponse.json(
         { message: "Missing required fields" },
         { status: 400 }
       );
     }
 
-    // 🖼️ HANDLE IMAGE UPLOAD
+    // IMAGE UPLOAD
     const bytes = await imageFile.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
@@ -58,22 +69,36 @@ export async function POST(req: Request) {
 
     const imagePath = `/uploads/products/${filename}`;
 
-    // 🔗 SLUG GENERATION
+    // SLUG
     const slug = name.toLowerCase().replace(/\s+/g, "-");
 
     await db.query(
       `
       INSERT INTO products 
-      (name, slug, description, price, category_id, image, featured)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      (name, slug, description, price, category_id, material_id, image, featured)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       `,
-      [name, slug, description, price, category_id, imagePath, featured]
+      [
+        name,
+        slug,
+        description,
+        price,
+        category_id,
+        material_id,
+        imagePath,
+        featured,
+      ]
     );
 
-    return NextResponse.json({ message: "Product created successfully" });
+    return NextResponse.json({
+      message: "Product created successfully",
+    });
   } catch (error: unknown) {
     return NextResponse.json(
-      { message: "Failed to create product", error: String(error) },
+      {
+        message: "Failed to create product",
+        error: String(error),
+      },
       { status: 500 }
     );
   }

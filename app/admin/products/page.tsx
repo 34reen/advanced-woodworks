@@ -7,6 +7,7 @@ type Product = {
   price: number;
   image: string;
   category_name: string;
+  material_id: "",
   featured?: number;
 };
 

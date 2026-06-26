@@ -5,7 +5,7 @@ import UsageExamples from "@/components/materials/UsageExamples";
 export const metadata = {
   title: "Materials Store | Advanced Woodworks",
   description:
-    "Browse premium wood materials, boards, planks, finishing products, prices, sizes, and bulk order options from Advanced Woodworks.",
+    "Browse premium wood materials and workshop-ready inventory from Advanced Woodworks.",
 };
 
 export default function MaterialsPage() {

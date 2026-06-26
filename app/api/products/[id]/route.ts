@@ -96,7 +96,7 @@ export async function PUT(
       await db.query(
         `
         UPDATE products
-        SET name=?, description=?, price=?, category_id=?, featured=?, image=?
+        SET name=?, description=?, price=?, category_id=?, material_id=?, featured=?, image=?
         WHERE id=?
         `,
         [
