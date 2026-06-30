@@ -1,3 +1,6 @@
+FILE:
+lib/db.ts
+
 import mysql from "mysql2/promise";
 
 const requiredEnvVars = [
@@ -21,6 +24,11 @@ export const db = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+
+  // Railway/Vercel production connection
+  ssl: {
+    rejectUnauthorized: false,
+  },
 
   waitForConnections: true,
   connectionLimit: 10,
