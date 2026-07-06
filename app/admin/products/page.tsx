@@ -1,26 +1,32 @@
 import Link from "next/link";
 import DeleteProductButton from "@/components/admin/DeleteProductButton";
+import { db } from "@/lib/db";
 
 type Product = {
   id: number;
   name: string;
   price: number;
   image: string;
-  category_name: string;
-  material_id: "",
+  category_name: string | null;
+  material_id: number | null;
   featured?: number;
 };
 
 async function getProducts(): Promise<Product[]> {
-  const res = await fetch("http://localhost:3000/api/products", {
-    cache: "no-store",
-  });
+  const [rows] = await db.query(`
+    SELECT
+      p.*,
+      c.name AS category_name,
+      m.name AS material_name
+    FROM products p
+    LEFT JOIN categories c
+      ON p.category_id = c.id
+    LEFT JOIN materials m
+      ON p.material_id = m.id
+    ORDER BY p.created_at DESC
+  `);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch products");
-  }
-
-  return res.json();
+  return rows as Product[];
 }
 
 export default async function AdminProductsPage() {
@@ -28,12 +34,12 @@ export default async function AdminProductsPage() {
 
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Products</h1>
 
         <Link
           href="/admin/products/new"
-          className="bg-black text-white px-4 py-2"
+          className="bg-black px-4 py-2 text-white"
         >
           Add Product
         </Link>
@@ -43,29 +49,34 @@ export default async function AdminProductsPage() {
         {products.map((product) => (
           <div
             key={product.id}
-            className="flex items-center gap-4 border p-4 rounded"
+            className="flex items-center gap-4 rounded border p-4"
           >
             <img
               src={product.image}
               alt={product.name}
-              className="w-20 h-20 object-cover rounded"
+              className="h-20 w-20 rounded object-cover"
             />
 
             <div className="flex-1">
               <h2 className="font-semibold">{product.name}</h2>
+
               <p className="text-sm text-gray-600">
-                {product.category_name}
+                {product.category_name ?? "Uncategorized"}
               </p>
-              <p className="text-sm">KSh {product.price}</p>
+
+              <p className="text-sm">
+                KSh {Number(product.price).toLocaleString()}
+              </p>
             </div>
 
             <div className="flex gap-2">
               <Link
-  href={`/admin/products/${product.id}/edit`}
-  className="px-3 py-1 border"
->
-  Edit
-</Link>
+                href={`/admin/products/${product.id}/edit`}
+                className="border px-3 py-1"
+              >
+                Edit
+              </Link>
+
               <DeleteProductButton id={product.id} />
             </div>
           </div>
