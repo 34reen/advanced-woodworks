@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import type { RowDataPacket } from "mysql2";
-import { v4 as uuidv4 } from "uuid";
-import path from "path";
-import { writeFile } from "fs/promises";
+import { uploadImage } from "@/lib/cloudinary";
 
 type MaterialRow = {
   id: number;
@@ -86,22 +84,10 @@ export async function POST(req: Request) {
     let imagePath: string | null = null;
 
     if (imageFile && imageFile.size > 0) {
-      const bytes =
-        await imageFile.arrayBuffer();
-
-      const buffer = Buffer.from(bytes);
-
-      const filename = `${uuidv4()}-${imageFile.name}`;
-
-      const uploadPath = path.join(
-        process.cwd(),
-        "public/uploads/materials",
-        filename
+      imagePath = await uploadImage(
+        imageFile,
+        "advanced-woodworks/materials"
       );
-
-      await writeFile(uploadPath, buffer);
-
-      imagePath = `/uploads/materials/${filename}`;
     }
 
     await db.query(

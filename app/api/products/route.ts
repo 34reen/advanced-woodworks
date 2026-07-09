@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { v4 as uuidv4 } from "uuid";
-import path from "path";
-import { writeFile } from "fs/promises";
+import { uploadImage } from "@/lib/cloudinary";
 
 // GET PRODUCTS
 export async function GET() {
@@ -54,20 +52,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // IMAGE UPLOAD
-    const bytes = await imageFile.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    const filename = `${uuidv4()}-${imageFile.name}`;
-    const uploadPath = path.join(
-      process.cwd(),
-      "public/uploads/products",
-      filename
+    const imagePath = await uploadImage(
+      imageFile,
+      "advanced-woodworks/products"
     );
-
-    await writeFile(uploadPath, buffer);
-
-    const imagePath = `/uploads/products/${filename}`;
 
     // SLUG
     const slug = name.toLowerCase().replace(/\s+/g, "-");

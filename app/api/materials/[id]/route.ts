@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import type { RowDataPacket } from "mysql2";
-import { v4 as uuidv4 } from "uuid";
-import path from "path";
-import { writeFile } from "fs/promises";
+import { deleteImage, uploadImage } from "@/lib/cloudinary";
 
 type Context = {
   params: Promise<{ id: string }>;
@@ -170,27 +168,14 @@ export async function PUT(
       imageFile &&
       imageFile.size > 0
     ) {
-      const bytes =
-        await imageFile.arrayBuffer();
-
-      const buffer =
-        Buffer.from(bytes);
-
-      const filename = `${uuidv4()}-${imageFile.name}`;
-
-      const uploadPath =
-        path.join(
-          process.cwd(),
-          "public/uploads/materials",
-          filename
-        );
-
-      await writeFile(
-        uploadPath,
-        buffer
+      imagePath = await uploadImage(
+        imageFile,
+        "advanced-woodworks/materials"
       );
 
-      imagePath = `/uploads/materials/${filename}`;
+      await deleteImage(
+        rows[0].image
+      );
     }
 
     await db.query(
@@ -228,8 +213,7 @@ export async function PUT(
   } catch (error: unknown) {
     return NextResponse.json(
       {
-        message:
-          "Failed to update material",
+        message: "Failed to update material",
         error:
           error instanceof Error
             ? error.message
@@ -249,6 +233,25 @@ export async function DELETE(
 ) {
   try {
     const { id } = await context.params;
+
+    const [rows] =
+      await db.query<
+        MaterialRow[]
+      >(
+        `
+        SELECT image
+        FROM materials
+        WHERE id = ?
+        LIMIT 1
+        `,
+        [id]
+      );
+
+    if (rows.length) {
+      await deleteImage(
+        rows[0].image
+      );
+    }
 
     await db.query(
       "DELETE FROM materials WHERE id = ?",

@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { writeFile } from "fs/promises";
-import path from "path";
-import { v4 as uuidv4 } from "uuid";
+import { deleteImage, uploadImage } from "@/lib/cloudinary";
 
 type RouteContext = {
   params: Promise<{
@@ -69,27 +67,33 @@ export async function PUT(
     const description = formData.get("description") as string;
     const price = Number(formData.get("price"));
     const category_id = Number(formData.get("category_id"));
+    const material_id = Number(formData.get("material_id"));
     const featured = formData.get("featured") === "true";
     const imageFile = formData.get("image") as File | null;
 
     let imagePath: string | null = null;
+    let previousImagePath: string | null = null;
 
     // Only upload if new image selected
     if (imageFile && imageFile.size > 0) {
-      const bytes = await imageFile.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-
-      const filename = `${uuidv4()}-${imageFile.name}`;
-
-      const uploadPath = path.join(
-        process.cwd(),
-        "public/uploads/products",
-        filename
+      const [rows] = await db.query(
+        "SELECT image FROM products WHERE id = ? LIMIT 1",
+        [id]
       );
 
-      await writeFile(uploadPath, buffer);
+      const productRows = rows as Array<{
+        image: string | null;
+      }>;
 
-      imagePath = `/uploads/products/${filename}`;
+      previousImagePath =
+        productRows[0]?.image ?? null;
+
+      imagePath = await uploadImage(
+        imageFile,
+        "advanced-woodworks/products"
+      );
+
+      await deleteImage(previousImagePath);
     }
 
     if (imagePath) {
@@ -104,6 +108,7 @@ export async function PUT(
           description,
           price,
           category_id,
+          material_id,
           featured,
           imagePath,
           id,
@@ -134,7 +139,10 @@ export async function PUT(
     return NextResponse.json(
       {
         message: "Failed to update product",
-        error: String(error),
+        error:
+          error instanceof Error
+            ? error.message
+            : "Unknown error",
       },
       { status: 500 }
     );
@@ -155,6 +163,19 @@ export async function DELETE(
         { message: "Product ID is required" },
         { status: 400 }
       );
+    }
+
+    const [rows] = await db.query(
+      "SELECT image FROM products WHERE id = ? LIMIT 1",
+      [id]
+    );
+
+    const productRows = rows as Array<{
+      image: string | null;
+    }>;
+
+    if (productRows.length) {
+      await deleteImage(productRows[0].image);
     }
 
     await db.query(
